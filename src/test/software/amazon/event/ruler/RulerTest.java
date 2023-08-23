@@ -20,7 +20,7 @@ public class RulerTest {
             "        \"Image\": {\n" +
             "            \"Width\":  800,\n" +
             "            \"Height\": 600,\n" +
-            "            \"Title\":  \"View from 15th Floor\",\n" +
+            "            \"Title\":  \"<View from 15th Floor>\",\n" +
             "            \"Thumbnail\": {\n" +
             "                \"Url\":    \"http://www.example.com/image/481989943\",\n" +
             "                \"Height\": 125,\n" +
@@ -30,26 +30,18 @@ public class RulerTest {
             "            \"IDs\": [116, 943, 234, 38793]\n" +
             "          }\n" +
             "      }";
-    private static final String JSON_FROM_README = "{\n" +
-            "  \"version\": \"0\",\n" +
-            "  \"id\": \"ddddd4-aaaa-7777-4444-345dd43cc333\",\n" +
-            "  \"detail-type\": \"EC2 Instance State-change Notification\",\n" +
-            "  \"source\": \"aws.ec2\",\n" +
-            "  \"account\": \"012345679012\",\n" +
-            "  \"time\": \"2017-10-02T16:24:49Z\",\n" +
-            "  \"region\": \"us-east-1\",\n" +
-            "  \"resources\": [\n" +
-            "    \"arn:aws:ec2:us-east-1:012345679012:instance/i-000000aaaaaa00000\"\n" +
-            "  ],\n" +
-            "  \"detail\": {\n" +
-            "    \"c.count\": 5,\n" +
-            "    \"d.count\": 3,\n" +
-            "    \"x.limit\": 301.8,\n" +
-            "    \"source-ip\": \"10.0.0.33\",\n" +
-            "    \"instance-id\": \"i-000000aaaaaa00000\",\n" +
-            "    \"state\": \"running\"\n" +
-            "  }\n" +
-            "}\n";
+
+
+
+    private static final String JSON_FROM_README = "{\"source\": \"<aws.ec2>\"}";
+
+    @Test
+    public void customHtmlRuleMatcher() throws Exception {
+        String rule1 = "{ \"source\" : [ { \"html\": \"<aws.ec1>\" } ] }";
+
+        Boolean b = Ruler.matchesRule(JSON_FROM_README, rule1);
+        System.out.println(b);
+    }
 
     private static final String JSON_FROM_README_WITH_FLAT_FORMAT = "{\n" +
             "  \"version\": \"0\",\n" +
@@ -617,5 +609,4 @@ public class RulerTest {
         for (int i = 0; i< events.length; i++) {
             assertEquals(events[i], result[i], Ruler.matchesRule(events[i], rule));
         }
-    }
-}
+    }}

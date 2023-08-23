@@ -23,12 +23,11 @@ public class HtmlParser {
      * @return
      */
     public InputCharacter[] parse(String value){
-        String valueWoQuotes = value.replaceAll("^\"|\"$", "");
-        List<InputCharacter> result = new ArrayList<>(valueWoQuotes.length());
+        List<InputCharacter> result = new ArrayList<>(value.length());
 
-        final byte[] utf8Bytes = valueWoQuotes.getBytes(StandardCharsets.UTF_8);
+        final byte[] utf8Bytes = value.getBytes(StandardCharsets.UTF_8);
         // Checks if the first char is a '<' and the last char is '>'. Example <head>
-        if(utf8Bytes[0] == 60 && utf8Bytes[utf8Bytes.length -1] == 62){
+        if(utf8Bytes[1] == 60 && utf8Bytes[utf8Bytes.length -2] == 62){
 
             for (int i = 0; i < utf8Bytes.length; i++) {
                 byte utf8byte = utf8Bytes[i];

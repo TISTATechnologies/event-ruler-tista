@@ -477,6 +477,7 @@ class ByteMachine {
                     switch (match.getPattern().type()) {
                         case EXACT:
                         case EQUALS_IGNORE_CASE:
+                        case HTML:
                         case WILDCARD:
                             if (valIndex == (val.length - 1)) {
                                 transitionTo.add(new NameStateWithPattern(match.getNextNameState(), match.getPattern()));
